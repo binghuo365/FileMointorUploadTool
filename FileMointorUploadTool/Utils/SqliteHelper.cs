@@ -23,15 +23,20 @@ namespace FileMointorUploadTool.Utils
 
         private static SQLiteConnection m_dbConnection;
 
+        private static Object mutex = new Object();
+
         public static void init()
         {
-            if (null == m_dbConnection)
+            lock (mutex)
             {
-                m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
-            }
-            if (m_dbConnection.State == ConnectionState.Closed)
-            {
-                m_dbConnection.Open();
+                if (null == m_dbConnection)
+                {
+                    m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
+                }
+                if (m_dbConnection.State == ConnectionState.Closed)
+                {
+                    m_dbConnection.Open();
+                }
             }
         }
         public static void fina()
@@ -81,7 +86,7 @@ namespace FileMointorUploadTool.Utils
         /// <returns></returns>
         public static DataSet ExecuteDataSet(string commandText, object[] paramList)
         {
-
+            
             SQLiteCommand cmd = m_dbConnection.CreateCommand();
             cmd.CommandText = commandText;
             if (paramList != null)
