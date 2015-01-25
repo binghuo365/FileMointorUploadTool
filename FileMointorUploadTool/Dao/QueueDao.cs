@@ -19,7 +19,7 @@ namespace FileMointorUploadTool.Dao
                 string sql = "select * from t_queue where  status = 0 order by id desc limit 0,1";
                 DataSet ds = FileMointorUploadTool.Utils.SQLiteHelper.ExecuteDataSet(sql, null);
                 FileMointorUploadTool.Entity.Queue queue = new Queue();
-                if (null != ds && ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     queue.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"].ToString());
                     queue.Status = Convert.ToInt32(ds.Tables[0].Rows[0]["status"].ToString());
@@ -52,6 +52,24 @@ namespace FileMointorUploadTool.Dao
                 return false;
             }
             finally 
+            {
+                FileMointorUploadTool.Utils.SQLiteHelper.fina();
+            }
+        }
+
+        public static bool update(FileMointorUploadTool.Entity.Queue entity)
+        {
+            try
+            {
+                FileMointorUploadTool.Utils.SQLiteHelper.init();
+                string sql = "update t_queue set status = " + entity.Status + " where id = "+ entity.Id;
+                return FileMointorUploadTool.Utils.SQLiteHelper.ExecuteNonQuery(sql) > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
             {
                 FileMointorUploadTool.Utils.SQLiteHelper.fina();
             }

@@ -107,7 +107,6 @@
             this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(146, 21);
             this.password.TabIndex = 13;
-            this.password.Text = "qqqq2548fucktheworld";
             // 
             // username
             // 

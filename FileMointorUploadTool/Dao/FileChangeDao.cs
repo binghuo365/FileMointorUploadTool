@@ -19,6 +19,7 @@ namespace FileMointorUploadTool.Dao
             }
             catch (Exception ex)
             {
+                FileMointorUploadTool.Utils.LogHelper.WriteLog(ex);
                 return false;
             }
             finally

@@ -8,12 +8,12 @@ namespace FileMointorUploadTool.Entity
 {
     public class UploadLog
     {
-        private int _int;
+        private int _id;
 
-        public int _int1
+        public int Id
         {
-            get { return _int; }
-            set { _int = value; }
+            get { return _id; }
+            set { _id = value; }
         }
         private string _title;
 

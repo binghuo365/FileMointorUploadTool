@@ -27,16 +27,13 @@ namespace FileMointorUploadTool.Utils
 
         public static void init()
         {
-            lock (mutex)
+            if (null == m_dbConnection)
             {
-                if (null == m_dbConnection)
-                {
-                    m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
-                }
-                if (m_dbConnection.State == ConnectionState.Closed)
-                {
-                    m_dbConnection.Open();
-                }
+                m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
+            }
+            if (m_dbConnection.State == ConnectionState.Closed)
+            {
+                m_dbConnection.Open();
             }
         }
         public static void fina()
@@ -86,7 +83,7 @@ namespace FileMointorUploadTool.Utils
         /// <returns></returns>
         public static DataSet ExecuteDataSet(string commandText, object[] paramList)
         {
-            
+            LogHelper.WriteLog("enter");
             SQLiteCommand cmd = m_dbConnection.CreateCommand();
             cmd.CommandText = commandText;
             if (paramList != null)
@@ -100,6 +97,7 @@ namespace FileMointorUploadTool.Utils
             da.Fill(ds);
             da.Dispose();
             cmd.Dispose();
+            LogHelper.WriteLog("return");
             return ds;
         }
         /// <summary>
@@ -307,6 +305,7 @@ namespace FileMointorUploadTool.Utils
         /// <returns></returns>
         public static int ExecuteNonQuery(string commandText)
         {
+            LogHelper.WriteLog("enter");
             SQLiteCommand cmd = m_dbConnection.CreateCommand();
             if (cmd.Connection.State == ConnectionState.Closed)
                 cmd.Connection.Open();
@@ -314,6 +313,7 @@ namespace FileMointorUploadTool.Utils
             int result = cmd.ExecuteNonQuery();
             cmd.Connection.Close();
             cmd.Dispose();
+            LogHelper.WriteLog("return ");
             return result;
         }
 
