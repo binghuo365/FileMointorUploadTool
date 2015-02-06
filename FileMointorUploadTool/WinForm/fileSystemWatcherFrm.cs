@@ -151,15 +151,15 @@ namespace FileMointorUploadTool.WinForm
                         FileMointorUploadTool.Dao.FileChangeDao.Save(log);
 
                         //添加到列队中 jpg gif 文件添加到列队中
-                        if (strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("gif")
-                            || strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("jpg")
-                            || strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("png"))
-                        {
-                            FileMointorUploadTool.Entity.Queue queue = new Entity.Queue();
-                            queue.Path = e.FullPath;
-                            queue.Status = 0;
-                            FileMointorUploadTool.Dao.QueueDao.Save(queue);
-                        }
+                        //if (strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("gif")
+                        //    || strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("jpg")
+                        //    || strArr[strArr.Length - 1].Split('.')[1].ToLower() == ("png"))
+                        //{
+                        //    FileMointorUploadTool.Entity.Queue queue = new Entity.Queue();
+                        //    queue.Path = e.FullPath;
+                        //    queue.Status = 0;
+                        //    FileMointorUploadTool.Dao.QueueDao.Save(queue);
+                        //}
                         break;
                     case WatcherChangeTypes.Deleted:
                         lvi.ForeColor = Color.Red;
@@ -199,6 +199,17 @@ namespace FileMointorUploadTool.WinForm
             log3.AfterValue = e.FullPath;
             log3.ChangeType = 2;
             FileMointorUploadTool.Dao.FileChangeDao.Save(log3);
+
+            //添加到列队中 jpg gif 文件添加到列队中
+            if (newStrArr[newStrArr.Length - 1].Split('.')[1].ToLower() == ("gif")
+                || newStrArr[newStrArr.Length - 1].Split('.')[1].ToLower() == ("jpg")
+                || newStrArr[newStrArr.Length - 1].Split('.')[1].ToLower() == ("png"))
+            {
+                FileMointorUploadTool.Entity.Queue queue = new Entity.Queue();
+                queue.Path = e.FullPath;
+                queue.Status = 0;
+                FileMointorUploadTool.Dao.QueueDao.Save(queue);
+            }
         }
 
         private void fileSystemWatcher_EventHandle(object sender, FileSystemEventArgs e)
@@ -273,7 +284,7 @@ namespace FileMointorUploadTool.WinForm
             this.Close();
             this.Dispose(true);
             notifyIcon1.Dispose();
-            Application.Exit();
+            System.Environment.Exit(0);
         }
 
         private void Initializenotifyicon()
