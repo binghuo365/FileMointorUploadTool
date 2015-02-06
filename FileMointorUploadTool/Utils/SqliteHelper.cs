@@ -29,7 +29,7 @@ namespace FileMointorUploadTool.Utils
         {
             if (null == m_dbConnection)
             {
-                m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
+                m_dbConnection = new SQLiteConnection("Data Source=F:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
             }
             if (m_dbConnection.State == ConnectionState.Closed)
             {
@@ -113,7 +113,7 @@ namespace FileMointorUploadTool.Utils
             SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
             da.Fill(ds);
             da.Dispose();
-            cmd.Connection.Close();
+            //cmd.Connection.Close();
             cmd.Dispose();
             return ds;
         }
@@ -255,7 +255,7 @@ namespace FileMointorUploadTool.Utils
                 m_dbConnection.Open();
             int result = cmd.ExecuteNonQuery();
             cmd.Dispose();
-            m_dbConnection.Close();
+            //m_dbConnection.Close();
 
             return result;
         }
@@ -293,8 +293,8 @@ namespace FileMointorUploadTool.Utils
             if (cmd.Connection.State == ConnectionState.Closed)
                 cmd.Connection.Open();
             int result = cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
-            cmd.Dispose();
+            //cmd.Connection.Close();
+            //cmd.Dispose();
             return result;
         }
 
@@ -311,7 +311,7 @@ namespace FileMointorUploadTool.Utils
                 cmd.Connection.Open();
             cmd.CommandText = commandText;
             int result = cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
+            //cmd.Connection.Close();
             cmd.Dispose();
             LogHelper.WriteLog("return ");
             return result;
@@ -333,7 +333,7 @@ namespace FileMointorUploadTool.Utils
                 m_dbConnection.Open();
             object result = cmd.ExecuteScalar();
             cmd.Dispose();
-            m_dbConnection.Close();
+            //m_dbConnection.Close();
 
             return result;
         }
@@ -359,7 +359,7 @@ namespace FileMointorUploadTool.Utils
             da.Fill(ds);
             // convert our dataset to XML
             StringReader stream = new StringReader(ds.GetXml());
-            command.Connection.Close();
+            //command.Connection.Close();
             // convert our stream of text to an XmlReader
             return new XmlTextReader(stream);
         }
