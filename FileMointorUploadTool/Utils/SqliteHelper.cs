@@ -29,7 +29,7 @@ namespace FileMointorUploadTool.Utils
         {
             if (null == m_dbConnection)
             {
-                m_dbConnection = new SQLiteConnection("Data Source=F:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
+                m_dbConnection = new SQLiteConnection("Data Source=E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\Config\\DB\\fileMointor.s3db;Version=3;");
             }
             if (m_dbConnection.State == ConnectionState.Closed)
             {

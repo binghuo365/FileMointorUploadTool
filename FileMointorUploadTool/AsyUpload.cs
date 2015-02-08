@@ -24,11 +24,13 @@ namespace FileMointorUploadTool
                     uploadLog.Title = queue.Path;
                     uploadLog.Fingerprint = FileMointorUploadTool.Utils.Md5.getMD5Hash(queue.Path);
                     uploadLog.Dt = DateTime.Now;
+                    string waterPath = queue.Path.Substring(0, queue.Path.Length - 4) + "_water" + queue.Path.Substring(queue.Path.Length - 4, 4) ;
                     if (!FileMointorUploadTool.Dao.UploadDao.isUpdate(uploadLog.Fingerprint))
                     {
                         queue.Status = 1;
                         FileMointorUploadTool.Dao.QueueDao.update(queue);
-                        string key = FileMointorUploadTool.Utils.QiNiuHelper.uploadFile(queue.Path);
+                        FileMointorUploadTool.Utils.ImageWaterMark.WaterImage(queue.Path, "E:\\MyGitSource\\FileMointorUploadTool\\FileMointorUploadTool\\assert\\logowater3.png", "@behake.com", waterPath);
+                        string key = FileMointorUploadTool.Utils.QiNiuHelper.uploadFile(waterPath);
                         if ("error" != key)
                         {
                             addArticle(queue, key);
@@ -37,6 +39,7 @@ namespace FileMointorUploadTool
                     }
                     //已经删除，从任务列队中删除
                     FileMointorUploadTool.Utils.FileHelper.DeleteFile(queue.Path);
+                    FileMointorUploadTool.Utils.FileHelper.DeleteFile(waterPath);
                     FileMointorUploadTool.Dao.QueueDao.delete(queue.Id);
                 }
             }
