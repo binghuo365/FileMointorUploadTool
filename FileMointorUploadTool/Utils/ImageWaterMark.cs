@@ -138,15 +138,13 @@ namespace FileMointorUploadTool.Utils
             imgWatermark.Dispose();
         }
 
-
-
         public static void WaterImage(string filePath, string markPath, string text, string destPath)
         {
             Bitmap origialGif = new Bitmap(filePath);
             //用于存放桢 
             List<Gif.Components.GifDecoder.GifFrame> frames = new
             List<Gif.Components.GifDecoder.GifFrame>();
-            //如果不是gif文件,直接返回原图像 
+            //如果不是gif文件,打图片水印 
             if (origialGif.RawFormat.Guid != System.Drawing.Imaging.ImageFormat.Gif.Guid)
             {
                 BuildWatermark(filePath, markPath, text, destPath) ;
@@ -190,6 +188,5 @@ namespace FileMointorUploadTool.Utils
             }
             return;
         } 
-
     }
 }
