@@ -11,3 +11,6 @@
 4. 7牛存储API的使用
 5. 模拟post登录，并模拟向web后台添加内容
 6. 利用文件md5值做为文件指纹，去掉重复文件
+
+# 记录博客
+http://www.it-crazy.net/asyuploadfiletool/
